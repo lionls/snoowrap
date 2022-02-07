@@ -6,7 +6,6 @@
   "main": "dist/snoowrap.js",
   "types": "dist/snoowrap.d.ts",
   "scripts": {
-    "prepublish": "npm run compile",
     "prepublishOnly": "npm run compile",
     "prepare": "npm run compile",
     "compile": "npm run type-check && npm run build:babel && npm run build:types && node ./scripts/copyTSTypes.js",
@@ -84,7 +83,7 @@
     "jsdoc": "^3.6.7",
     "mocha": "^6.0.0",
     "moment": "^2.14.1",
-    "typescript": "^3.5.3",
+    "typescript": "4.5.4",
     "uglify-js": "git://github.com/mishoo/UglifyJS2.git#1db50c3b169ee4195e1935013d6721628eb5b4bd"
   },
   "engines": {

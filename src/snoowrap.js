@@ -25,7 +25,7 @@ import MediaFile, {MediaImg, MediaVideo, MediaGif} from './objects/MediaFile';
 // const Blob = global.Blob;
 
 import fetch from "node-fetch"
-import Blob from "cross-blob"
+const Blob = require("cross-blob");
 import {FormDataEncoder} from "form-data-encoder"
 
 // const FormData = require('form-data');

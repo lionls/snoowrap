@@ -948,6 +948,11 @@
   "resolved" "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz"
   "version" "2.2.0"
 
+"blob-polyfill@^5.0.20210201":
+  "integrity" "sha512-SrH6IG6aXL9pCgSysBCiDpGcAJ1j6/c1qCwR3sTEQJhb+MTk6FITNA6eW6WNYQDNZVi4Z9GjxH5v2MMTv59CrQ=="
+  "resolved" "https://registry.npmjs.org/blob-polyfill/-/blob-polyfill-5.0.20210201.tgz"
+  "version" "5.0.20210201"
+
 "bluebird@^3.7.2":
   "integrity" "sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg=="
   "resolved" "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz"
@@ -1600,6 +1605,14 @@
     "ripemd160" "^2.0.0"
     "safe-buffer" "^5.0.1"
     "sha.js" "^2.4.8"
+
+"cross-blob@^2.0.1":
+  "integrity" "sha512-ARuKPPo3I6DSqizal4UCyMCiGPQdMpMJS3Owx6Lleuh26vSt2UnfWRwbMLCYqbJUrcol+KzGVSLR91ezSHP80A=="
+  "resolved" "https://registry.npmjs.org/cross-blob/-/cross-blob-2.0.1.tgz"
+  "version" "2.0.1"
+  dependencies:
+    "blob-polyfill" "^5.0.20210201"
+    "fetch-blob" "^2.1.2"
 
 "cross-spawn@^6.0.0", "cross-spawn@^6.0.5":
   "integrity" "sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ=="
@@ -2272,6 +2285,11 @@
   "integrity" "sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc="
   "resolved" "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
   "version" "2.0.6"
+
+"fetch-blob@^2.1.2":
+  "integrity" "sha512-YKqtUDwqLyfyMnmbw8XD6Q8j9i/HggKtPEI+pZ1+8bvheBu78biSmNaXWusx1TauGqtUUGx/cBb1mKdq2rLYow=="
+  "resolved" "https://registry.npmjs.org/fetch-blob/-/fetch-blob-2.1.2.tgz"
+  "version" "2.1.2"
 
 "figures@^2.0.0":
   "integrity" "sha1-OrGi0qYsi/tDGgyUy3l6L84nyWI="

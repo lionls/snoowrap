@@ -2,6 +2,7 @@ import {defaults, forOwn, includes, isEmpty, map, mapValues, omit, omitBy, snake
 import util from 'util';
 import path from 'path';
 import stream from 'stream';
+import {Readable} from "stream"
 import {createReadStream} from 'fs';
 import * as requestHandler from './request_handler.js';
 import {HTTP_VERBS, KINDS, MAX_LISTING_ITEMS, MODULE_NAME, USER_KEYS, SUBREDDIT_KEYS, VERSION, MIME_TYPES, SUBMISSION_ID_REGEX, MEDIA_TYPES, PLACEHOLDER_REGEX} from './constants.js';
@@ -20,10 +21,16 @@ import * as objects from './objects/index.js';
 /* eslint-disable-next-line import/no-unresolved */
 import MediaFile, {MediaImg, MediaVideo, MediaGif} from './objects/MediaFile';
 
-const fetch = global.fetch;
-const Blob = global.Blob;
-const FormData = isBrowser ? global.FormData : require('form-data');
-const WebSocket = isBrowser ? global.WebSocket : require('ws');
+// const fetch = global.fetch;
+// const Blob = global.Blob;
+
+import fetch from "node-fetch"
+const Blob = require("cross-blob")
+import {FormDataEncoder} from "form-data-encoder"
+
+// const FormData = require('form-data');
+import {FormData} from "formdata-node"
+const WebSocket = require('ws');
 
 const api_type = 'json';
 
@@ -1295,6 +1302,8 @@ const snoowrap = class snoowrap {
    * // => MediaFile
    */
   async uploadMedia ({file, name, type, caption, outboundUrl, validateOnly = false}) {
+    console.log("Upload Media")
+    console.log(file)
     if (isBrowser && typeof fetch === 'undefined') {
       throw new errors.InvalidMethodCallError('Your browser doesn\'t support \'no-cors\' requests');
     }
@@ -1338,7 +1347,17 @@ const snoowrap = class snoowrap {
     };
     const formdata = new FormData();
     uploadResponse.args.fields.forEach(item => formdata.append(item.name, item.value));
+    // console.log("preform")
+    // console.log(parsedFile)
+    // console.log(fileName)
+    // console.log(formdata)
     formdata.append('file', parsedFile, fileName);
+
+    // console.log(formdata)
+    // console.log(formdata._boundary)
+
+    const encoder = await new FormDataEncoder(formdata)
+    // console.log(encoder)
     let res;
     if (isBrowser) {
       res = await fetch(uploadURL, {
@@ -1352,26 +1371,37 @@ const snoowrap = class snoowrap {
        * by setting `fileInfo.fileUrl` as the `src` attribute of an img/video element and listening to the load event.
        */
     } else {
-      const contentLength = await new Promise((resolve, reject) => {
-        formdata.getLength((err, length) => {
-          if (err) {
-            reject(err);
-          }
-          resolve(length);
-        });
-      });
+      // const contentLength = await new Promise((resolve, reject) => {
+      //   formdata.getLength((err, length) => {
+      //     if (err) {
+      //       reject(err);
+      //     }
+      //     resolve(length);
+      //   });
+      // });
+      // res = await this.rawRequest({
+      //   url: uploadURL,
+      //   method: 'post',
+      //   headers: {
+      //     'user-agent': this.userAgent,
+      //     'content-type': `multipart/form-data; boundary=${formdata._boundary}`,
+      //     'content-length': contentLength
+      //   },
+      //   data: formdata,
+      //   _r: this
+      // });
+
+      const contentLength = encoder.contentLength
+      
       res = await this.rawRequest({
         url: uploadURL,
         method: 'post',
-        headers: {
-          'user-agent': this.userAgent,
-          'content-type': `multipart/form-data; boundary=${formdata._boundary}`,
-          'content-length': contentLength
-        },
-        data: formdata,
+        headers: encoder.headers,
+        data: Readable.from(encoder),
         _r: this
       });
     }
+    // console.log(res)
     let media;
     switch (type) {
       case 'img':

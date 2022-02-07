@@ -6,6 +6,7 @@
   "main": "dist/snoowrap.js",
   "types": "dist/snoowrap.d.ts",
   "scripts": {
+    "prepublish": "npm run compile",
     "prepublishOnly": "npm run compile",
     "prepare": "npm run compile",
     "compile": "npm run type-check && npm run build:babel && npm run build:types && node ./scripts/copyTSTypes.js",

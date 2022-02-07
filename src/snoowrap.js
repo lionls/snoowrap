@@ -25,7 +25,7 @@ import MediaFile, {MediaImg, MediaVideo, MediaGif} from './objects/MediaFile';
 // const Blob = global.Blob;
 
 import fetch from "node-fetch"
-const Blob = require("cross-blob")
+import Blob from "cross-blob"
 import {FormDataEncoder} from "form-data-encoder"
 
 // const FormData = require('form-data');
@@ -1392,7 +1392,7 @@ const snoowrap = class snoowrap {
       // });
 
       const contentLength = encoder.contentLength
-      
+
       res = await this.rawRequest({
         url: uploadURL,
         method: 'post',
